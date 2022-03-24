@@ -22,13 +22,15 @@ Blackjack Rules:
 
 Actor is an overarching class that player and dealer inherit from. 
 - an actor must have a name, a turn ID (that determines their location in the turn order), and a hand
-- an actor must be able to add cards to their hand
+- an actor must be able to add cards to their hand from the deck
 - an actor must be able to sum cards in their hands
-- an actor must be able to declare their turn overarching
+- an actor must be informed that they have busted if their hand exceeds 21 in value
+- an actor must be able to declare their turn over
+- probably should be able to update its hand in the roster.
 
 Deck is a class that allows us to generate as many decks as we need, all containing the same array of cards.
 - a deck must have the properties 'Spades', 'Hearts', 'Diamonds', and 'Clubs'.
-- those properties must contain 14 cards each: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A
+- those properties must contain 13 cards each, in an array: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A
 - really we could name the four suits whatever we wanted, i guess
 - a deck must be able to randomize the order of cards during dealing
 - a deck must be able to absorb other deck objects into itself
@@ -46,15 +48,25 @@ Dealer class inherits from actor.
 - if neither is true, they will hit. 
 - if a player ties the Dealer, the Dealer wins.
 - if the Dealer busts, everyone (who didn't also bust) wins.
+- the game should end when the Dealer stands.
 
 Player class inherits from actor.
-- in addition to everything an actor can do, a player starts with a certain amount of cash they can bey
+- in addition to everything an actor can do, a player starts with a certain amount of cash they can bet
 - a player needs a method for betting money. they cannot bet more money than they have.
 - a player needs a method for receiving money they win
 - a player needs a method for losing money when they lose
 - there needs to be a roster of players that allows for cycling through a turn order
 - if a player beats the dealer, they need to receive their bet as winnings. This is independent from other players.
 - if a player gets a Blackjack, they receive 1.5x their bet as winnings. This is independent from other players.
+
+Roster class stores player names and turn IDs.
+- Should have the property turnOrder that is just a number starting at 1
+- Should have the property turnStorage that is an array of POJOs in {name: turnID} pairs.
+- Should have a method that checks whose turn it is
+- Should have a method that gets the current player
+- Should have a method that displays whose turn it is and their hand
+- Should reset the turn order on new game
+
 
 the game, when run, should:
 1. ask the players how many of them there are. max 7.
