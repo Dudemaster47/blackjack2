@@ -1,0 +1,75 @@
+/* alright so...
+Blackjack Rules: 
+
+
+- The goal of blackjack is to beat the dealer's hand without going over 21.
+- Face cards are worth 10. Aces are worth 1 or 11, whichever makes a better hand.
+- Each player starts with two cards, one of the dealer's cards is hidden until the end.
+- To 'Hit' is to ask for another card. To 'Stand' is to hold your total and end your turn.
+- If you go over 21 you bust, and the dealer wins regardless of the dealer's hand.
+- If you are dealt 21 from the start (Ace & 10), you got a blackjack.
+- Blackjack usually means you win 1.5 the amount of your bet. Depends on the casino.
+- Dealer will hit until his/her cards total 17 or higher.
+- Doubling is like a hit, only the bet is doubled and you only get one more card.
+- Split can be done when you have two of the same card - the pair is split into two hands.
+- Splitting also doubles the bet, because each new hand is worth the original bet.
+- You can only double/split on the first move, or first move of a hand created by a split.
+- You cannot play on two aces after they are split.
+- You can double on a hand resulting from a split, tripling or quadrupling you bet.
+
+(splitting and doubling is extra complication so... let's focus on everything else first)
+
+
+Actor is an overarching class that player and dealer inherit from. 
+- an actor must have a name, a turn ID (that determines their location in the turn order), and a hand
+- an actor must be able to add cards to their hand
+- an actor must be able to sum cards in their hands
+- an actor must be able to declare their turn overarching
+
+Deck is a class that allows us to generate as many decks as we need, all containing the same array of cards.
+- a deck must have the properties 'Spades', 'Hearts', 'Diamonds', and 'Clubs'.
+- those properties must contain 14 cards each: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A
+- really we could name the four suits whatever we wanted, i guess
+- a deck must be able to randomize the order of cards during dealing
+- a deck must be able to absorb other deck objects into itself
+- a deck must be able to lose cards that are dealt from it
+- the number of decks combined needs to related to the number of players playing
+
+Card class is mostly for a few methods that allow for summation in hands and swapping the Ace value
+- card class should have the Numberizer method that turns face cards into numbers when summing
+- card class should have the aceChecker method that determines whether aces should have the value 1 or 11
+
+Dealer class inherits from actor.
+- a dealer is fully automated.
+- a dealer's Turn ID is ALWAYS last.
+- the dealer MUST declare their turn over if they bust, or if their hand sums to 17 or higher.
+- if neither is true, they will hit. 
+- if a player ties the Dealer, the Dealer wins.
+- if the Dealer busts, everyone (who didn't also bust) wins.
+
+Player class inherits from actor.
+- in addition to everything an actor can do, a player starts with a certain amount of cash they can bey
+- a player needs a method for betting money. they cannot bet more money than they have.
+- a player needs a method for receiving money they win
+- a player needs a method for losing money when they lose
+- there needs to be a roster of players that allows for cycling through a turn order
+- if a player beats the dealer, they need to receive their bet as winnings. This is independent from other players.
+- if a player gets a Blackjack, they receive 1.5x their bet as winnings. This is independent from other players.
+
+the game, when run, should:
+1. ask the players how many of them there are. max 7.
+2. ask the players their names, and store them as new Player instances, as well as storing turn ID in the order given
+3. determine how many decks to use depending on player count. 2 decks if the player count is above 4. 
+4. create a dealer whose turn ID is one more than the player count. 
+5. deal the first hand to everyone.
+6. begin on playerID 1's turn: display that player's hand and current amount of cash to them, and ask them how much they are betting.
+7. once their bet has been stored, ask them if they'd like to hit or stay.
+8. if they hit, keep asking until they either bust or choose to end their turn.
+9. cycle through players following the same pattern.
+10. on the dealer's turn, describe the dealer's actions following the dealer turn logic (ie: Dealer stays on 17).
+11. determine which players were victorious and which players lost, and adjust their cash pools appropriately.
+12. ask each player if they'd like to play again; if they do not, or they no longer have any money, remove them from the roster.
+13. otherwise, return to step 3 until no players are left.
+
+can we make it play casino music? we should figure that bit out.
+*/

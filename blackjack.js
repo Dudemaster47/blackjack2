@@ -24,7 +24,9 @@ The Dealer stays on 17.
 Hands need to be stored as an array of the numeric values, suit doesn't really matter after the cards are removed from the deck.
 
 Add bidding????
-*/
+
+
+Side note, this would benefit from refactoring with classes... and testing to simplify this mess.*/
 let faceCards = {
     'J': 10,
     'Q': 10,
@@ -168,18 +170,14 @@ let playerRoster = (playerCount, roster = {}) => {
     for (let i = 1; i <= playerCount; i++){
         rl.question(`Player ${i}, please enter your name.`, name => {
             roster[name] = []
-            if (i < playerCount){
-                rl.close();
-            }   
-            else {
-                roster[dealer] = [];
-                console.log(roster);
-                console.log(`Let's begin.`)
-                firstDeal(roster);
-            }
         });
     };
-};
+    roster[dealer] = [];
+    console.log(roster);
+    console.log(`Let's begin.`)
+    firstDeal(roster);
+}
+    
 //this should return an object containing blank arrays for each player hand, the keys being each player's name.
 
 // let numberOfDecks = (playerCount) => {
@@ -214,6 +212,13 @@ let dealerTurn = (dealerHand) => {
 
 let playerTurn = (playerHand) => {
     let playerSum;
+    /* This will need functionality for multiple players, which means the roster object should also store a turn order to cycle through
+    That is probably gonna be a pain in the ass.
+    
+    Anyway, the base functionality of the player turn should be..
+
+    ...yeah this needs to be a class.
+    */
 };
 
 let victoryStorage = () => {};
