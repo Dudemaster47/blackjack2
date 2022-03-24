@@ -1,17 +1,9 @@
-
-
 const { clear } = require("console");
-
 const readline = require("readline");
 
-
-
 const rl = readline.createInterface({
-
     input: process.stdin,
-
     output: process.stdout
-
 });
 
 
@@ -33,6 +25,12 @@ Hands need to be stored as an array of the numeric values, suit doesn't really m
 
 Add bidding????
 */
+let faceCards = {
+    'J': 10,
+    'Q': 10,
+    'K': 10,
+    'A': 11
+}
 
 let deck = {
     // deck needs to be mutable.
@@ -51,7 +49,7 @@ const numberOfPlayers = () => {
                     if (conf === 'y' || conf === 'Y' || conf === 'yes' || conf === 'Yes' || conf === 'YES'){
                         console.log(`Understood`);
                         let playerCount = answer;
-                        numberOfDecks(playerCount);
+                        playerRoster(playerCount);
                     }
                     else if (conf === 'n' || conf === 'N' || conf === 'no' || conf === 'No' || conf === 'NO'){
                         console.log(`Understood.`);
@@ -63,7 +61,7 @@ const numberOfPlayers = () => {
                     }
                 });
         }
-        else if (Number(answer) > 5){
+        else if (Number(answer) > 1){
             console.log(`${answer} is too many players.`)
             numberOfPlayers();
 
@@ -75,36 +73,54 @@ const numberOfPlayers = () => {
     })
 };
 
+const handNumberizer = (hand) => {
+    // this basically just lets us turn the original hand into numbers so it can be used for MATH.
+    // there's probably a better way to do this but i suck at objects
+    let numArr = [];
+    hand.forEach(el => {
+        if (Object.keys(faceCards).includes(el)){
+            let newEl = faceCards[el]
+            numArr.push(newEl);
+        } else {
+            numArr.push(el);
+        }
+    })
+    return numArr;
+}
+
+const aceChecker = (hand) => {
+    //this takes NUMBERS from handNumberizer, checks the array, and determines if an ace is 1 or 11
+    let newHand = [];
+    if (hand.includes(11)){
+        hand.forEach(el => {
+            if (el === 11){
+                newHand.push(1);
+            } else{
+                newHand.push(el);
+            }
+        });
+        return newHand;
+    } else {
+        return hand;
+    }
+}
+
 const handSum = (hand) => {
     // this should look at a player's hand array and sum it.
     let sum = 0;
-    let ace = 11;
-    sum = hand.reduce((prevVal, currVal) => {
-        let faceCards = ['J', 'Q', 'K']
-        if (prevVal.includes(faceCards)){
-            prevVal = 10;
-        }
-        if (currVal.includes(faceCards)){
-            currVal = 10;
-        }
-        if (currVal.includes('A') && prevVal + 11 <= 21){
-            currVal = ace;
-        }
-        if (prevVal.includes('A') && currVal + 11 <= 21){
-            prevVal = ace;
-        }
-        if (currVal.includes('A') && prevVal + 11 > 21){
-            ace = 1;
-            currVal = ace;
-        }
-        if (prevVal.includes('A') && prevVal + 11 > 21){
-            ace = 1;
-            prevVal = ace;
-        }
-        return (prevVal + currVal);
-        //this is a job for refactoring to clean it up...
-    
+    sum = handNumberizer(hand).reduce((prevVal, currVal) => {
+        return prevVal + currVal;
     }, sum);
+    if (sum > 21){
+        sum = 0;
+        let fnlArr = aceChecker(handNumberizer(hand))
+        sum = fnlArr.reduce((prevVal, currVal) => {
+            return prevVal + currVal;
+        }, sum);
+        return sum;
+    } else {
+        return sum;
+    }
 };
 
 const cardDrawer = () => {
@@ -166,16 +182,16 @@ let playerRoster = (playerCount, roster = {}) => {
 };
 //this should return an object containing blank arrays for each player hand, the keys being each player's name.
 
-let numberOfDecks = (playerCount) => {
-// this might require deep duping?
-// instead of asking, just like. set the number of decks equal to the players
-// then copy the deck object that many times and concat them together?
-// i don't really wanna deal with it.
-    playerRoster(playerCount);
-};
+// let numberOfDecks = (playerCount) => {
+// // this might require deep duping?
+// // instead of asking, just like. set the number of decks equal to the players
+// // then copy the deck object that many times and concat them together?
+// // i don't really wanna deal with it.
+//     playerRoster(playerCount);
+// };
 
 
-let victoryStorage = () => {};
+
 
 let dealerTurn = (dealerHand) => {
 // ok
@@ -200,7 +216,8 @@ let playerTurn = (playerHand) => {
     let playerSum;
 };
 
-
+let victoryStorage = () => {};
+// i think this is for determining what type of victory it outputs
 
 let victory = () => {
 //one of the more complicated helper functions?
@@ -210,3 +227,10 @@ let victory = () => {
     3. If the Dealer draws a 21, the game ends immediately.
     4. If a Player draws a 21 and the Dealer does not, the game ends immediately.*/
 };
+
+let testHand1 = ['A', 10, 2]
+let testHand2 = ['A', 'J']
+let testHand3 = ['J', 'Q', 'K']
+console.log(handSum(testHand1));
+console.log(handSum(testHand2));
+console.log(handSum(testHand3));
