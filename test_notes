@@ -62,14 +62,16 @@ the game, when run, should:
 3. determine how many decks to use depending on player count. 2 decks if the player count is above 4. 
 4. create a dealer whose turn ID is one more than the player count. 
 5. deal the first hand to everyone.
-6. begin on playerID 1's turn: display that player's hand and current amount of cash to them, and ask them how much they are betting.
-7. once their bet has been stored, ask them if they'd like to hit or stay.
-8. if they hit, keep asking until they either bust or choose to end their turn.
-9. cycle through players following the same pattern.
-10. on the dealer's turn, describe the dealer's actions following the dealer turn logic (ie: Dealer stays on 17).
-11. determine which players were victorious and which players lost, and adjust their cash pools appropriately.
-12. ask each player if they'd like to play again; if they do not, or they no longer have any money, remove them from the roster.
-13. otherwise, return to step 3 until no players are left.
+6. reveal everyone's first card.
+7. begin on playerID 1's turn: display that player's hand and current amount of cash to them, and ask them how much they are betting.
+8. once their bet has been stored, ask them if they'd like to hit or stay.
+9. if they hit, keep asking until they either bust or choose to end their turn.
+10. cycle through players following the same pattern.
+11. on the dealer's turn, describe the dealer's actions following the dealer turn logic (ie: Dealer stays on 17).
+12. reveal all player (and dealer) hands.
+13. determine which players were victorious and which players lost, and adjust their cash pools appropriately.
+14. ask each player if they'd like to play again; if they do not, or they no longer have any money, remove them from the roster.
+15. otherwise, return to step 3 until no players are left.
 
 can we make it play casino music? we should figure that bit out.
 */
