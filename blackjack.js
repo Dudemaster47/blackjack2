@@ -27,7 +27,7 @@ Add bidding????
 
 
 Side note, this would benefit from refactoring with classes... and testing to simplify this mess.*/
-let dealer = "Alex";
+let dealer = "Dealer";
 let faceCards = {
     'J': 10,
     'Q': 10,
@@ -68,7 +68,6 @@ const firstQuestion = (answer) => {
 }
 
 const secondQuestion = (conf, answer) =>{
-    console.log("conf:", conf)
     if (conf.toLowerCase() === 'y' || conf.toLowerCase() === 'yes'){
         console.log(`Understood `);
         let playerCount = answer;
@@ -159,6 +158,7 @@ const dealACard = (hand) => {
     let cardArr = cardDrawer();
     hand.push(cardArr[1]);
     deck[cardArr[0]] = deck[cardArr[0]].filter(element => !(element === cardArr[1]))
+    return hand;
 };
 
 const firstDeal = (roster) => {
@@ -172,23 +172,30 @@ const firstDeal = (roster) => {
                 dealACard(roster[hand]);
             }
         }
-        // this... SHOULD cycle through it twice?
+        console.log(roster);
+        let rosterArray = Object.entries(roster);
+        playerTurn(rosterArray[0][1], rosterArray);
 };
+let n = 1
+let recursiveQuestion = (playerCount, roster) => {
+    if(playerCount === 0){
+        roster[dealer] = [];
+        console.log(`Let's begin.`)
+        firstDeal(roster);
+    }
+    else{
+    rl.question(`Player ${n}, please enter your name. `, name => {
+        roster[name] = []
+        n++
+        recursiveQuestion((playerCount - 1), roster);
+    }); 
+    }
+}
 
 let playerRoster = (playerCount, roster = {}) => {
     //so what we want to do is get each player's name, and shove each name into the object as its own key that we'll later use to store an array of cards as the values.
     //first things first, we need to iterate over the player count.
-    // Create a Recursive Function
-    for (let i = 1; i <= playerCount; i++){
-        rl.question(`Player ${i}, please enter your name.`, name => {
-            roster[name] = []
-        }); // put this into a function and recursively call it
-    };
-    roster[dealer] = [];
-    //console.log("roster", roster);
-    console.log(`Let's begin.`)
-    firstDeal(roster);
-    //console.log("roster", roster)
+    recursiveQuestion(playerCount, roster);
 }
 
 //playerRoster(3)
@@ -213,12 +220,14 @@ let dealerTurn = (dealerHand) => {
     if (handSum(dealerHand) >= 17 && handSum(dealerHand) <= 21){
         dealerSum = handSum(dealerHand);
         console.log(`The Dealer stays.`);
-        victoryStorage(dealerSum);
+        console.log(`The Dealer's Hand: ${dealerHand}`);
+        victory(dealerSum, victLog);
     }
     else if (handSum(dealerHand) > 21){
         dealerSum = handSum(dealerHand);
         console.log(`The Dealer busts.`);
-        victoryStorage(dealerSum);
+        console.log(`The Dealer's Hand: ${dealerHand}`);
+        victory(dealerSum, victLog);
     }
     else {
         console.log(`The Dealer draws a card.`);
@@ -226,26 +235,57 @@ let dealerTurn = (dealerHand) => {
     }
 };
 
-let playerTurn = (playerHand) => {
-    let playerSum;
-    /* This will need functionality for multiple players, which means the roster object should also store a turn order to cycle through
-    That is probably gonna be a pain in the ass.
-
-    Anyway, the base functionality of the player turn should be...
-    idk basically the same as the dealer turn but with readline stuff
-    */
+let m = 0;
+let victLog = {};
+let playerTurn = (playerHand, rosterArray) => {
+    let playerName = rosterArray[m][0];
+    let playerSum = handSum(playerHand);
+    console.log(`${playerName}: `)
+    console.log(`Your hand: ${playerHand}`)
+    console.log(`Your card total: ${playerSum}`)
+    if (playerSum <= 21){
+        rl.question('Would you like to hit or stand? ', response => {
+            playerQuestion(response, playerHand, rosterArray, playerSum, playerName);
+        });
+    } else {
+        console.log("You bust.");
+        victLog[playerName] = playerSum
+        m++;
+        if (m < (rosterArray.length - 1)){
+            playerTurn(rosterArray[m][1], rosterArray);
+        } else {
+            dealerTurn(rosterArray[m][1]);
+        }
+    }
 };
 
-let victoryStorage = () => {};
-// i think this is for determining what type of victory it outputs
+let playerQuestion = (response, playerHand, rosterArray, playerSum, playerName) => {
+    if(response.toLowerCase() === 'hit'){
+        dealACard(playerHand);
+        console.log(playerHand);
+        playerTurn(playerHand, rosterArray);
+    } else if (response.toLowerCase() === 'stand'){
+        victLog[playerName] = playerSum
+        m++
+        if (m < (rosterArray.length - 1)){
+            playerTurn(rosterArray[m][1], rosterArray);
+        } else {
+            dealerTurn(rosterArray[m][1]);
+        }
+    } else {
+        console.log("Enter a valid response.");
+        playerTurn(playerHand, rosterArray);
+    }
+}
 
-let victory = () => {
-//one of the more complicated helper functions?
+let victory = (dealerSum) => {
+    console.log(victLog);
+    console.log(dealerSum);
 /* Rules to note:
     1. Ties go to the Dealer.
-    2. As long as one Player beats the Dealer, all Players who didn't bust win.
-    3. If the Dealer draws a 21, the game ends immediately.
-    4. If a Player draws a 21 and the Dealer does not, the game ends immediately.*/
+    2. Players win and lose individually against the Dealer.
+*/
+
 };
 
 // let testHand1 = ['A', 10, 2]
