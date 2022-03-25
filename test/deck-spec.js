@@ -40,6 +40,71 @@ describe('Card', function(){
 
         //this hides what aceChecker does but...
         //it should basically be called by player.sumHand whenever it gets over 21
-        //then it just...sums the hand with the cards' alt values and returns that instead.
+        //then it just sums the hand with the cards' alt values and returns that instead.
     });
+    
+});
+
+describe ('Deck', function(){
+    let card2;
+    let card3;
+    let card4;
+    let card5;
+    let card6;
+    let card7;
+    let card8;
+    let card9;
+    let card10;
+    let card11;
+    let card12;
+    let card13;
+    let card14;
+    let deck;
+
+    beforeEach(function(){
+        //create a set of test cards
+        //create a test deck
+        card2 = new Cards(2, 2, 2);
+        card3 = new Cards(3, 3, 3);
+        card4 = new Cards(4, 4, 4);
+        card5 = new Cards(5, 5, 5);
+        card6 = new Cards(6, 6, 6);
+        card7 = new Cards(7, 7, 7);
+        card8 = new Cards(8, 8, 8);
+        card9 = new Cards(9, 9, 9);
+        card10 = new Cards(10, 10, 10);
+        card11 = new Cards('J', 10, 10);
+        card12 = new Cards('Q', 10, 10);
+        card13 = new Cards('K', 10, 10);
+        card14 = new Cards('A', 11, 1);
+        deck = new Deck([], [], [], []);
+        });
+    
+        it('should be created with 13 cards in every suit', function(){
+            expect(deck.spades.length).to.equal(0);
+            expect(deck.hearts.length).to.equal(0);
+            expect(deck.diamonds.length).to.equal(0);
+            expect(deck.clubs.length).to.equal(0);
+            deck.shuffle();
+            expect(deck.spades.length).to.equal(13);
+            expect(deck.hearts.length).to.equal(13);
+            expect(deck.diamonds.length).to.equal(13);
+            expect(deck.clubs.length).to.equal(13);
+        });
+
+        it('should randomly choose suits and cards in each suit when dealing', function(){
+
+        });
+
+        it('should remove cards from its arrays when they are dealt', function(){
+
+        });
+
+        it('should be able to be combined with other decks', function(){
+
+        });
+
+        it('should have a quantity of decks related to the player count', function(){
+
+        });
 });

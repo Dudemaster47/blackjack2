@@ -29,8 +29,8 @@ Actor is an overarching class that player and dealer inherit from.
 - probably should be able to update its hand in the roster.
 
 Deck is a class that allows us to generate as many decks as we need, all containing the same array of cards.
-- a deck must have the properties 'Spades', 'Hearts', 'Diamonds', and 'Clubs'.
-- those properties must contain 13 cards each, in an array: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A
+- a deck must have the keys 'Spades', 'Hearts', 'Diamonds', and 'Clubs'.
+- those keys must contain arrays of 13 cards each by default, in an array: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A
 - really we could name the four suits whatever we wanted, i guess
 - a deck must be able to randomize the order of cards during dealing
 - a deck must be able to absorb other deck objects into itself
