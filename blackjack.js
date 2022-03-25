@@ -48,12 +48,12 @@ const numberOfPlayers = () => {
         if (!(isNaN(answer))){
             console.log(`You responded ${answer} players. Is that correct?`);
                 rl.question(`Y/N`, (conf) => {
-                    if (conf === 'y' || conf === 'Y' || conf === 'yes' || conf === 'Yes' || conf === 'YES'){
+                    if (conf.toLowerCase() === 'y' || conf.toLowerCase() === 'yes'){
                         console.log(`Understood`);
                         let playerCount = answer;
                         playerRoster(playerCount);
                     }
-                    else if (conf === 'n' || conf === 'N' || conf === 'no' || conf === 'No' || conf === 'NO'){
+                    else if (conf.toLowerCase() === 'n' ||  conf.toLowerCase() === 'no'){
                         console.log(`Understood.`);
                         numberOfPlayers();
                     }
