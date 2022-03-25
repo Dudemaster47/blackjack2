@@ -215,9 +215,8 @@ let playerTurn = (playerHand) => {
     /* This will need functionality for multiple players, which means the roster object should also store a turn order to cycle through
     That is probably gonna be a pain in the ass.
     
-    Anyway, the base functionality of the player turn should be..
-
-    ...yeah this needs to be a class.
+    Anyway, the base functionality of the player turn should be...
+    idk basically the same as the dealer turn but with readline stuff
     */
 };
 

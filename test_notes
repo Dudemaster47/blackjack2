@@ -44,7 +44,7 @@ Card class is mostly for a few methods that allow for summation in hands and swa
 Dealer class inherits from actor.
 - a dealer is fully automated.
 - a dealer's Turn ID is ALWAYS last.
-- the dealer MUST declare their turn over if they bust, or if their hand sums to 17 or higher.
+- the dealer MUST declare their turn over if their hand sums to 17 or higher.
 - if neither is true, they will hit. 
 - if a player ties the Dealer, the Dealer wins.
 - if the Dealer busts, everyone (who didn't also bust) wins.
@@ -63,6 +63,7 @@ Roster class stores player names and turn IDs.
 - Should have the property turnOrder that is just a number starting at 1
 - Should have the property turnStorage that is an array of POJOs in {name: turnID} pairs.
 - Should have a method that checks whose turn it is
+- Should have a method that begins victory calculations when the turnOrder value exceeds playerCount + 1.
 - Should have a method that gets the current player
 - Should have a method that displays whose turn it is and their hand
 - Should reset the turn order on new game
