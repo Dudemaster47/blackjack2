@@ -49,13 +49,13 @@ const numberOfPlayers = () => {
 }
 // Refactoring the Above
 const firstQuestion = (answer) => {
-    if (!(isNaN(answer))){
+    if (!(isNaN(answer)) && Number(answer) <= 7){
         console.log(`You responded ${answer} players. Is that correct?`);
         rl.question(`Y/N `, response =>{
                 secondQuestion(response, answer)
         })
 
-    }else if (Number(answer) > 1){
+    }else if (Number(answer) > 7){
             console.log(`${answer} is too many players.`)
             numberOfPlayers();
 
@@ -84,7 +84,7 @@ const secondQuestion = (conf, answer) =>{
 }
 
 
-numberOfPlayers()
+
 const handNumberizer = (hand) => {
     // this basically just lets us turn the original hand into numbers so it can be used for MATH.
     // there's probably a better way to do this but i suck at objects
@@ -172,7 +172,7 @@ const firstDeal = (roster) => {
                 dealACard(roster[hand]);
             }
         }
-        console.log(roster);
+
         let rosterArray = Object.entries(roster);
         playerTurn(rosterArray[0][1], rosterArray);
 };
@@ -279,8 +279,19 @@ let playerQuestion = (response, playerHand, rosterArray, playerSum, playerName) 
 }
 
 let victory = (dealerSum) => {
+    console.log(`The Dealer's total is: ${dealerSum}`);
     console.log(victLog);
-    console.log(dealerSum);
+    for(let key in victLog){
+        let score = victLog[key];
+        if(score > 21){
+            console.log(`${key} loses!`);
+        } else if (score <= dealerSum && dealerSum <= 21) {
+            console.log(`${key} loses!`)
+        } else {
+            console.log(`${key} wins!`);
+        }
+    rl.close();
+    }
 /* Rules to note:
     1. Ties go to the Dealer.
     2. Players win and lose individually against the Dealer.
@@ -294,3 +305,10 @@ let victory = (dealerSum) => {
 // console.log(handSum(testHand1));
 // console.log(handSum(testHand2));
 // console.log(handSum(testHand3));
+const initialize = () => {
+    console.log(`BLACKJACK ver 0.0.1
+By Alex Hiller, Megha Saghal, & Brody Owen`);
+    numberOfPlayers();
+}
+
+initialize();
