@@ -16,6 +16,7 @@ class Actor{
         this.victory = victory;
         this.hand = []
         this.displayHand;
+        this.checkedHand;
         
         // this.rosterAdd(roster);
     }
@@ -66,6 +67,17 @@ class Actor{
             this.displayHand.concat(el.ascii);
         //should just give a string that's the cards
         });
+        checkHand();
+    }
+    
+    checkHand(){
+        for(i = 0; i < this.displayHand.length; i++){
+            if(i = 0){
+                this.checkedHand.concat(this.displayHand[i]);
+            } else {
+                this.checkedHand.concat("\uD83C\uDCA0");
+            }
+        }
     }
 
     bustChecker(roster){
@@ -84,7 +96,11 @@ class Actor{
         this.scoreStorage(roster, this.sumHand());
         roster.turnOrder++;
         console.clear();
-        roster.currentPlayer();
+        
+        if(roster.turnOrder <= roster.actorStorage.length){
+            roster.currentPlayer();
+        } else {
+        }
     }
 
     scoreStorage(roster, handSum){

@@ -254,3 +254,12 @@ let processInput = (roster, deck, player) => {
     });
   });
 }
+
+let dealerTurn = (roster, deck) => {
+  console.clear();
+  rl.question(`Dealer
+  Hand: ${this.actorStorage[turnOrder - 1].checkedHand}`, response => {
+    this.turn(roster, deck);
+    endgame(roster, deck);
+  });
+}

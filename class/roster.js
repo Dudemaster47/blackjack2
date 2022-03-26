@@ -45,7 +45,7 @@ class Roster{
         //shows the first card in the hand of all actors at the table
         for(let i = 0; i < this.actorStorage.length; i++){
             if(this.actorStorage[i].turnID !== actor.turnID){
-            console.log(`${this.actorStorage[i].name}'s hand: ${this.actorStorage[i].displayHand[0]} ${"\uD83C\uDCA0"}`);
+            console.log(`${this.actorStorage[i].name}'s hand: ${this.actorStorage[i].checkedHand}`);
             }
         }
     }
