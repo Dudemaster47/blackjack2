@@ -1,6 +1,13 @@
+const readline = require('readline');
+
 const {Deck} = require('./deck.js');
 const {Card} = require('./card.js');
 const {Roster} = require('./roster.js');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
 
 class Actor{
     constructor(name, turnID, victory = true){
@@ -22,6 +29,7 @@ class Actor{
         this.hand.push(deck.stack.shift());
         this.handDisplay();
         roster.rosterUpdate(this);
+        this.bustChecker(roster);
         //...huh, that should actually be all it needs.
     }
 
@@ -67,9 +75,9 @@ class Actor{
     }
 
     bust(roster){
-        console.log(`${this.name} busts!`);
-        this.victory = false;
-        this.stand(roster);
+        rl.question(`${this.name} busts!`, response =>{
+            this.victory = false;
+        });
     }
 
     stand(roster){

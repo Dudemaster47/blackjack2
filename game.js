@@ -190,8 +190,12 @@ let printTurn = (player) => {
 }
 
 let playerTurn = (roster, deck) => {
-  let player = roster.actorStorage[roster.turnOrder - 1];
-  printTurn(player);
+  if (roster.actorStorage[roster.turnOrder - 1].name !== 'Dealer'){
+    let player = roster.actorStorage[roster.turnOrder - 1];
+    printTurn(player);
+  } else {
+    dealerTurn(roster, deck);
+  }
 
 
   rl.question(`First, place your bet. 
@@ -218,7 +222,35 @@ let processInput = (roster, deck, player) => {
       printHelp();
     }
 
-    printTurn(player);
-    processInput(roster, deck, player);
+    else if(cmd === 'q'){
+      rl.close();
+      process.exit();
+    }
+
+    else if(cmd === 'hit'){
+      player.hit(roster, deck);
+      if(!player.victory){
+        player.stand(roster);
+        playerTurn(roster, deck);
+      }
+    }
+
+    else if(cmd === 'stand'){
+      player.stand(roster);
+      playerTurn(roster, deck);
+    }
+
+    else if(cmd === 'hand'){
+      player.handInspect();
+    }
+
+    else if(cmd === 'table'){
+      roster.tableInspect(player);
+    }
+    
+    rl.question("", response => {
+      printTurn(player);
+      processInput(roster, deck, player);
+    });
   });
 }
