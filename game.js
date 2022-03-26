@@ -18,6 +18,7 @@ const rl = readline.createInterface({
 function printHelp(){
   console.log("Commands:");
   console.log("Type h at any time to review the list of commands.");
+  console.log("Type 'q' at any time to end the game")
   console.log("Type 'hit' to draw another card");
   console.log("Type 'stand' to end your turn");
   console.log("Type 'hand' to list the contents of your hand.");
@@ -149,7 +150,6 @@ let recursiveQuestion = (playerCount, roster, deck) => {
         roster.dealerTurnSet(dealer);
         roster.addToRoster(dealer);
         console.clear();
-        console.log(`Let's begin.`)
         firstDeal(roster, deck);
     }
     else{
@@ -162,4 +162,63 @@ let recursiveQuestion = (playerCount, roster, deck) => {
         recursiveQuestion((playerCount - 1), roster, deck);
     }); 
     }
+}
+
+let firstDeal = (roster, deck) => {
+  deck.setDeck(roster);
+  deck.shuffle();
+  for(let i = 0; i < 2; i++){
+    for(let j = 0; j < roster.actorStorage.length; j++){
+      this.roster.actorStorage[j].hit(roster, deck);
+    }
+  }
+  andNowWeActuallyBegin(roster, deck);
+}
+
+let andNowWeActuallyBegin = (roster, deck) => {
+  rl.question("Let's begin.", response => {
+    playerTurn(roster, deck);
+  })
+}
+
+let printTurn = (player) => {
+  console.clear();
+  console.log(`${player.name}
+  Hand: ${player.displayHand}
+  Card Total: ${player.sumHand()}
+  Cash: $${player.cash}`);
+}
+
+let playerTurn = (roster, deck) => {
+  let player = roster.actorStorage[roster.turnOrder - 1];
+  printTurn(player);
+
+
+  rl.question(`First, place your bet. 
+  > $`, bet => {
+    if (player.betMoney(bet)){
+      console.log("Now, what will you do?")
+      processInput(roster, deck, player);
+    }
+    else {
+      console.log(`Try entering a VALID bet.`);
+      rl.question("You know, like an amount less than or equal to the cash you've got on you.", response => {
+        playerTurn(roster, deck);
+      });
+    }
+  });
+}
+
+let processInput = (roster, deck, player) => {
+
+  rl.question('> ', cmd => {
+    cmd = cmd.toLowerCase();
+
+    if(cmd === 'h'){
+      printHelp();
+    }
+
+    printTurn(player);
+    processInput(roster, deck, player);
+  });
 }

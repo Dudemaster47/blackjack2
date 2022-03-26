@@ -13,10 +13,11 @@ class Player extends Actor {
     }
 
     betMoney(num){
-        if(num > this.cash){
+        if(num > this.cash || isNaN(num)){
             return false;
         } else {
             this.bet = num;
+            return true;
         }
     }
 

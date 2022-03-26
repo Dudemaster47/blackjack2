@@ -7,7 +7,14 @@ class Deck {
         this.stack = stack;
         this.sortedStack = [];
     }
-
+    setDeck(roster){
+        
+        for(let i = 0; i < roster.actorStorage.length; i++){
+            if(roster.actorStorage[i]){
+                roster.actorStorage[i].setDeck(this);
+            }
+        }
+    }
     shuffle(){
         //this should generate random values between 0 and (this.sortedStack.length - 1)
         //then it should splice the selected random index out of sorted stack

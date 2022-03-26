@@ -48,15 +48,6 @@ class Loader{
         }
         return this.fnlDeck;
     }
-
-    static setDeck(fnlDeck){
-        
-        for(let i = 0; i < Loader.roster.actorStorage.length; i++){
-            if(Loader.roster.actorStorage[i]){
-                Loader.roster.actorStorage[i].setDeck(fnlDeck);
-            }
-        }
-    }
 }
 
 module.exports = {

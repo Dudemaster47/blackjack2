@@ -17,7 +17,7 @@ class Actor{
         this.deck = deck;
     }
 
-    hit(deck, roster){
+    hit(roster, deck){
         //this is a method for drawing cards...
         this.hand.push(deck.stack.shift());
         this.handDisplay();
