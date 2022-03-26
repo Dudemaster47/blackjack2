@@ -5,9 +5,7 @@ const {Roster} = require('./roster.js');
 
 class Loader{
     static decks = [];
-    static roster;
     static fnlDeck;
-    static dealer;
 
     static loadCards(cardData){
         const cardList = cardData.cards;
@@ -46,8 +44,9 @@ class Loader{
         }
 
         for(let i = 0; i < (counter / 2); i++){
-            fnlDeck.sortedStack.concat(deck[i].sortedStack);
+            fnlDeck.sortedStack.concat(Loader.decks[i].sortedStack);
         }
+        return this.fnlDeck;
     }
 
     static setDeck(fnlDeck){
@@ -58,11 +57,6 @@ class Loader{
             }
         }
     }
-
-    static createDealer(dealer){
-        dealer = new Dealer("Dealer", 0);
-    }
-
 }
 
 module.exports = {

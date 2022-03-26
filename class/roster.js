@@ -6,10 +6,6 @@ class Roster{
         this.scoreStorage = {};
     }
 
-    updatePlayerCount(){
-        this.playerCount++
-    }
-
     addToRoster(actor){
         this.actorStorage.push(actor);
     }

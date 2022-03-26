@@ -21,6 +21,7 @@ class Deck {
         }
         //pretty sure that's all it needs.
     }
+    
 }
 
 module.exports = {
