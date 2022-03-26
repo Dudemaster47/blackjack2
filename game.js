@@ -78,10 +78,7 @@ function startGame(){
       console.clear();
       console.log(`Node Blackjack ver. 0.2
       Developed by Alex Hiller, Megha Sahgal, and Brody Owen`);
-
-      Loader.loadCards(cardData);
       
-
       printHelp();
 
       rl.question("Press the 'Any' key to begin your Blackjack adventure!", () => {
@@ -139,6 +136,11 @@ const secondQuestion = (conf, answer) =>{
 
 let playerRoster = (playerCount) => {
   let roster = new Roster(1, [], playerCount);
+  stepForEaseOfRestarting(roster);
+}
+
+let stepForEaseOfRestarting = (roster) => {
+  Loader.loadCards(cardData);
   let deck = Loader.deckMerge(roster);
   recursiveQuestion(playerCount, roster, deck);
 }
@@ -262,4 +264,77 @@ let dealerTurn = (roster, deck) => {
     this.turn(roster, deck);
     endgame(roster, deck);
   });
+}
+
+let endgame = (roster, deck) => {
+  console.clear();
+  rl.question(`Final Card Totals: 
+  `, response => {
+    let dealer = roster.actorStorage[turnOrder - 1];
+    console.log(`The Dealer: ${dealer.handSum()}
+    The Dealer's Hand: ${dealer.displayHand}`)
+    
+    for(let i = 0; i < roster.actorStorage.length - 1; i++){
+      console.log(`${roster.actorStorage[i].name}: ${roster.actorStorage[i].sumHand()}`);
+      roster.actorStorage[i].lossCheck(dealer);
+      if(roster.actorStorage[i].victory){
+        roster.actorStorage[i].win();
+      } else {
+        roster.actorStorage[i].lose();
+      }
+    }
+    endgame2(roster, deck);
+    });
+}
+
+let endgame2 = (roster, deck) => {
+  rl.question('', response => {
+    console.clear();
+    for(let i = 0; i < roster.actorStorage.length - 1; i++){
+      let player = roster.actorStorage[i];
+      if(player.victory){
+        console.log(`${player.name} wins!`);
+      } else {
+        console.log(`${player.name} loses!`)
+      }
+    }
+    endgame3(roster);
+  });
+}
+
+let endgame3 = (roster) => {
+  rl.question('', response => {
+    console.clear();
+    roster.playerKick();
+    finalQuery(roster);
+  });
+}
+
+let finalQuery = (roster) => {
+  rl.question('', response => {
+    console.clear();
+    rl.question(`Would you like to keep playing? `, conf =>{
+      secondQuestion2(conf, roster);
+    });
+  });
+}
+
+let secondQuestion2 = (conf, roster) =>{
+  if (conf.toLowerCase() === 'y' || conf.toLowerCase() === 'yes'){
+      console.clear();
+      console.log(`Then let's start again... `);
+      stepForEaseOfRestarting(roster);
+  }
+  else if (conf.toLowerCase() === 'n' ||  conf.toLowerCase() === 'no'){
+      console.clear();
+      console.log(`Come back soon!.`);
+      rl.close();
+      process.exit();
+  }
+  else {
+      console.clear();
+      console.log(`I'll take that as a 'no'.`);
+      rl.close();
+      process.exit();
+  }
 }

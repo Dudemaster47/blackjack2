@@ -102,10 +102,6 @@ class Actor{
         } else {
         }
     }
-
-    scoreStorage(roster, handSum){
-        roster.scoreStorage[this.name] = handSum;
-    }
 }
 
 module.exports = {
