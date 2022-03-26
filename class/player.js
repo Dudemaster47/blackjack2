@@ -11,6 +11,7 @@ class Player extends Actor{
         this.cash = 100;
         this.bet = 0;
         this.rosterUpdate(roster);
+        
     }
 
     betMoney(){
@@ -35,6 +36,21 @@ class Player extends Actor{
 
     rosterUpdate(roster){
         roster.updatePlayerCount();
+    }
+
+    handInspect(){
+        //returns the contents of your hand
+        this.hand.forEach(el => {
+            let card = this.getCardByID(el);
+            card.cardInspector();
+        })
+    }
+
+    tableInspect(roster){
+        //shows the first card in the hand of all actors at the table
+        for(let i = 0; i < roster.actorStorage.length; i++){
+            console.log(``)
+        }
     }
 }
 

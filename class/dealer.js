@@ -8,11 +8,11 @@ class Dealer extends Actor{
     constructor(name = "Dealer", turnID){
         super(name, turnID);
         // this.hand = [];
-        this.turnSet();
+        this.turnSet(roster);
     }
 
-    turnSet(){
-        
+    turnSet(roster){
+        this.turnID = (roster.playerCount + 1)
     }
 
     checkSeventeen(){

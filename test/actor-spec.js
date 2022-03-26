@@ -79,7 +79,7 @@ describe ('Actor', function (){
     it('should add itself to the roster on creation', function(){
         // this will have to be a method called by the constructor i believe
         // that said... if it happens on creation it basically just calls for checking the roster.
-        expect(roster.actorStorage[0][actor.name]).to.equal(actor.turnID);
+        expect(roster.actorStorage[0].name).to.equal(actor.name);
         // god that's ugly... and I'm not sure that's the right way to go about this.
         // i'll revisit this one as I'm testing.
     });
@@ -95,17 +95,15 @@ describe ('Actor', function (){
         actor.hand = ['AS', 'JS']
 
         expect(roster.turnOrder).to.equal(1);
-        expect(roster.currentPlayer()).to.equal(actor.name);
-        expect(roster.currentHand()).to.equal(actor.hand);
+        expect(roster.currentPlayer()).to.equal(actor);
         // the actor.stand() method should tick up the roster's turn order
-        // then it should call a method in the roster class that checks the turnStorage
-        // when it determines whose turn it is, it 'gets' the information fo that person
-        // then it says it's their turn and display their hand.
+        // then it should call a method in the roster class that checks the turnOrder
+        // when it determines whose turn it is, it 'gets' the information for that person
+        // then it says it's their turn.
         actor.stand();
         expect(roster.turnOrder).to.equal(2);
         expect(roster.turnOrder).to.equal(roster.actorStorage[1][actor2.name]);
-        expect(roster.currentPlayer()).to.equal(actor2.name);
-        expect(roster.currentHand()).to.equal(actor2.hand);
+        expect(roster.currentPlayer()).to.equal(actor2);
 
     });
 });

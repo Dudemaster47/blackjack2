@@ -1,6 +1,7 @@
 class Card{
-    constructor(id, value, altValue, suit, ascii){
+    constructor(id, name, value, altValue, suit, ascii){
         this.id = id;
+        this.name = name;
         this.value = value;
         this.altValue = altValue;
         this.suit = suit;
@@ -8,7 +9,11 @@ class Card{
     }
 
     aceChecker(){
-        
+
+    }
+
+    cardInspector(){
+        console.log(`${this.name} of ${this.suit}`)
     }
 }
 

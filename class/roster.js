@@ -5,8 +5,8 @@ const {Deck} = require('./deck.js');
 const {Card} = require('./card.js');
 
 class Roster{
-    constructor(currentPlayer, actorStorage, playerCount){
-        this.currentPlayer = currentPlayer;
+    constructor(turnOrder, actorStorage, playerCount){
+        this.turnOrder = turnOrder;
         this.actorStorage = actorStorage;
         this.playerCount = playerCount;
     }
@@ -14,6 +14,28 @@ class Roster{
     updatePlayerCount(){
         this.playerCount++
     }
+
+    addToRoster(actor){
+        this.actorStorage.push(actor);
+    }
+
+    initialHandDisplay(){
+        //all this has to do is run on all chars after the first deal.
+        for(let i = 0; i < this.actorStorage.length; i++){
+            this.actorStorage[i].handDisplay();
+        }
+    }
+
+    currentPlayer(){
+        for(let i = 0; i < this.actorStorage.length; i++){
+            if(this.actorStorage[i].turnID === this.turnOrder){
+                console.log(`${this.actorStorage[i].name}'s turn.`);
+                return this.actorStorage[i];
+            }
+        }
+        //this should be fed into the actual ui when we get to that bit...
+    }
+
 }
 
 module.exports = {

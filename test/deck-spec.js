@@ -20,15 +20,16 @@ describe('Card', function(){
     beforeEach(function(){
     //create a set of test cards
     //create a test deck
-    card = new Cards('AS', 11, 1, 'Spades');
-    card2 = new Cards('JH', 10, 10, 'Hearts');
-    card3 = new Cards('2C', 2, 2, 'Clubs');
+    card = new Cards('AS', 'Ace', 11, 1, 'Spades');
+    card2 = new Cards('JH', 'Jack', 10, 10, 'Hearts');
+    card3 = new Cards('2C', 'Two', 2, 2, 'Clubs');
     deck = new Deck(1, []);
     })
 
 
     it('should have an id, value, altValue, and suit property', function(){
         expect(card.id).to.equal('AS');
+        expect(card.name).to.equal('Ace');
         expect(card.value).to.equal(11);
         expect(card.altValue).to.equal(1);
     });

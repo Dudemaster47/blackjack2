@@ -1,4 +1,6 @@
 module.exports = {
+    //yes i know the card images are unicode and not ascii shut up
+    //i've already gone through each of these too many times to change that
     decks: [
         {
             id: 1,
@@ -21,6 +23,7 @@ module.exports = {
     cards: [
         {
             id: '2S',
+            name: 'Two',
             value: 2,
             altValue: 2,
             suit: 'Spades',
@@ -28,6 +31,7 @@ module.exports = {
         },
         {
             id: '3S',
+            name: 'Three',
             value: 3,
             altValue: 3,
             suit: 'Spades',
@@ -35,6 +39,7 @@ module.exports = {
         },
         {
             id: '4S',
+            name: 'Four',
             value: 4,
             altValue: 4,
             suit: 'Spades',
@@ -42,6 +47,7 @@ module.exports = {
         },
         {
             id: '5S',
+            name: 'Five',
             value: 5,
             altValue: 5,
             suit: 'Spades',
@@ -49,6 +55,7 @@ module.exports = {
         },
         {
             id: '6S',
+            name: 'Six',
             value: 6,
             altValue: 6,
             suit: 'Spades',
@@ -56,6 +63,7 @@ module.exports = {
         },
         {
             id: '7S',
+            name: 'Seven',
             value: 7,
             altValue: 7,
             suit: 'Spades',
@@ -63,6 +71,7 @@ module.exports = {
         },
         {
             id: '8S',
+            name: 'Eight',
             value: 8,
             altValue: 8,
             suit: 'Spades',
@@ -70,6 +79,7 @@ module.exports = {
         },
         {
             id: '9S',
+            name: 'Nine',
             value: 9,
             altValue: 9,
             suit: 'Spades',
@@ -77,6 +87,7 @@ module.exports = {
         },
         {
             id: '10S',
+            name: 'Ten',
             value: 10,
             altValue: 10,
             suit: 'Spades',
@@ -84,6 +95,7 @@ module.exports = {
         },
         {
             id: 'JS',
+            name: 'Jack',
             value: 10,
             altValue: 10,
             suit: 'Spades',
@@ -91,6 +103,7 @@ module.exports = {
         },
         {
             id: 'QS',
+            name: 'Queen',
             value: 10,
             altValue: 10,
             suit: 'Spades',
@@ -98,6 +111,7 @@ module.exports = {
         },
         {
             id: 'KS',
+            name: 'King',
             value: 10,
             altValue: 10,
             suit: 'Spades',
@@ -105,6 +119,7 @@ module.exports = {
         },
         {
             id: 'AS',
+            name: 'Ace',
             value: 11,
             altValue: 1,
             suit: 'Spades',
@@ -112,6 +127,7 @@ module.exports = {
         },
         {
             id: '2H',
+            name: 'Two',
             value: 2,
             altValue: 2,
             suit: 'Hearts',
@@ -119,6 +135,7 @@ module.exports = {
         },
         {
             id: '3H',
+            name: 'Three',
             value: 3,
             altValue: 3,
             suit: 'Hearts',
@@ -126,6 +143,7 @@ module.exports = {
         },
         {
             id: '4H',
+            name: 'Four',
             value: 4,
             altValue: 4,
             suit: 'Hearts',
@@ -133,6 +151,7 @@ module.exports = {
         },
         {
             id: '5H',
+            name: 'Five',
             value: 5,
             altValue: 5,
             suit: 'Hearts',
@@ -140,6 +159,7 @@ module.exports = {
         },
         {
             id: '6H',
+            name: 'Six',
             value: 6,
             altValue: 6,
             suit: 'Hearts',
@@ -147,6 +167,7 @@ module.exports = {
         },
         {
             id: '7H',
+            name: 'Seven',
             value: 7,
             altValue: 7,
             suit: 'Hearts',
@@ -154,6 +175,7 @@ module.exports = {
         },
         {
             id: '8H',
+            name: 'Eight',
             value: 8,
             altValue: 8,
             suit: 'Hearts',
@@ -161,6 +183,7 @@ module.exports = {
         },
         {
             id: '9H',
+            name: 'Nine',
             value: 9,
             altValue: 9,
             suit: 'Hearts',
@@ -168,6 +191,7 @@ module.exports = {
         },
         {
             id: '10H',
+            name: 'Ten',
             value: 10,
             altValue: 10,
             suit: 'Hearts',
@@ -175,6 +199,7 @@ module.exports = {
         },
         {
             id: 'JH',
+            name: 'Jack',
             value: 10,
             altValue: 10,
             suit: 'Hearts',
@@ -182,6 +207,7 @@ module.exports = {
         },
         {
             id: 'QH',
+            name: 'Queen',
             value: 10,
             altValue: 10,
             suit: 'Hearts',
@@ -189,6 +215,7 @@ module.exports = {
         },
         {
             id: 'KH',
+            name: 'King',
             value: 10,
             altValue: 10,
             suit: 'Hearts',
@@ -196,6 +223,7 @@ module.exports = {
         },
         {
             id: 'AH',
+            name: 'Ace',
             value: 11,
             altValue: 1,
             suit: 'Hearts',
@@ -203,6 +231,7 @@ module.exports = {
         },
         {
             id: '2D',
+            name: 'Two',
             value: 2,
             altValue: 2,
             suit: 'Diamonds',
@@ -210,6 +239,7 @@ module.exports = {
         },
         {
             id: '3D',
+            name: 'Three',
             value: 3,
             altValue: 3,
             suit: 'Diamonds',
@@ -217,6 +247,7 @@ module.exports = {
         },
         {
             id: '4D',
+            name: 'Four',
             value: 4,
             altValue: 4,
             suit: 'Diamonds',
@@ -224,6 +255,7 @@ module.exports = {
         },
         {
             id: '5D',
+            name: 'Five',
             value: 5,
             altValue: 5,
             suit: 'Diamonds',
@@ -231,6 +263,7 @@ module.exports = {
         },
         {
             id: '6D',
+            name: 'Six',
             value: 6,
             altValue: 6,
             suit: 'Diamonds',
@@ -238,6 +271,7 @@ module.exports = {
         },
         {
             id: '7D',
+            name: 'Seven',
             value: 7,
             altValue: 7,
             suit: 'Diamonds',
@@ -245,6 +279,7 @@ module.exports = {
         },
         {
             id: '8D',
+            name: 'Eight',
             value: 8,
             altValue: 8,
             suit: 'Diamonds',
@@ -252,6 +287,7 @@ module.exports = {
         },
         {
             id: '9D',
+            name: 'Nine',
             value: 9,
             altValue: 9,
             suit: 'Diamonds',
@@ -259,6 +295,7 @@ module.exports = {
         },
         {
             id: '10D',
+            name: 'Ten',
             value: 10,
             altValue: 10,
             suit: 'Diamonds',
@@ -266,6 +303,7 @@ module.exports = {
         },
         {
             id: 'JD',
+            name: 'Jack',
             value: 10,
             altValue: 10,
             suit: 'Diamonds',
@@ -273,6 +311,7 @@ module.exports = {
         },
         {
             id: 'QD',
+            name: 'Queen',
             value: 10,
             altValue: 10,
             suit: 'Diamonds',
@@ -280,6 +319,7 @@ module.exports = {
         },
         {
             id: 'KD',
+            name: 'King',
             value: 10,
             altValue: 10,
             suit: 'Diamonds',
@@ -287,6 +327,7 @@ module.exports = {
         },
         {
             id: 'AD',
+            name: 'Ace',
             value: 11,
             altValue: 1,
             suit: 'Diamonds',
@@ -294,6 +335,7 @@ module.exports = {
         },
         {
             id: '2C',
+            name: 'Two',
             value: 2,
             altValue: 2,
             suit: 'Clubs',
@@ -301,6 +343,7 @@ module.exports = {
         },
         {
             id: '3C',
+            name: 'Three',
             value: 3,
             altValue: 3,
             suit: 'Clubs',
@@ -308,6 +351,7 @@ module.exports = {
         },
         {
             id: '4C',
+            name: 'Four',
             value: 4,
             altValue: 4,
             suit: 'Clubs',
@@ -315,6 +359,7 @@ module.exports = {
         },
         {
             id: '5C',
+            name: 'Five',
             value: 5,
             altValue: 5,
             suit: 'Clubs',
@@ -322,6 +367,7 @@ module.exports = {
         },
         {
             id: '6C',
+            name: 'Six',
             value: 6,
             altValue: 6,
             suit: 'Clubs',
@@ -329,6 +375,7 @@ module.exports = {
         },
         {
             id: '7C',
+            name: 'Seven',
             value: 7,
             altValue: 7,
             suit: 'Clubs',
@@ -336,6 +383,7 @@ module.exports = {
         },
         {
             id: '8C',
+            name: 'Eight',
             value: 8,
             altValue: 8,
             suit: 'Clubs',
@@ -343,6 +391,7 @@ module.exports = {
         },
         {
             id: '9C',
+            name: 'Nine',
             value: 9,
             altValue: 9,
             suit: 'Clubs',
@@ -350,6 +399,7 @@ module.exports = {
         },
         {
             id: '10C',
+            name: 'Ten',
             value: 10,
             altValue: 10,
             suit: 'Clubs',
@@ -357,6 +407,7 @@ module.exports = {
         },
         {
             id: 'JC',
+            name: 'Jack',
             value: 10,
             altValue: 10,
             suit: 'Clubs',
@@ -364,6 +415,7 @@ module.exports = {
         },
         {
             id: 'QC',
+            name: 'Queen',
             value: 10,
             altValue: 10,
             suit: 'Clubs',
@@ -371,6 +423,7 @@ module.exports = {
         },
         {
             id: 'KC',
+            name: 'King',
             value: 10,
             altValue: 10,
             suit: 'Clubs',
@@ -378,6 +431,7 @@ module.exports = {
         },
         {
             id: 'AC',
+            name: 'Ace',
             value: 11,
             altValue: 1,
             suit: 'Clubs',

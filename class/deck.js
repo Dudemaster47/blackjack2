@@ -10,7 +10,7 @@ class Deck {
 
     shuffle(){
         //this should generate random values between 0 and (this.sortedStack.length - 1)
-        //then it should splice the selected random index out of sorted stack and push it into stack
+        //then it should splice the selected random index out of sorted stack and push the card ID into stack
         //then it should recurse
         //it should keep recursing until the length of sortedStack is 0
     }
