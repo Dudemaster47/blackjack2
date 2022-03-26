@@ -1,5 +1,5 @@
-const { clear } = require("console");
-const readline = require("readline");
+const { clear } = module.require("console");
+const readline = module.require("readline");
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -309,6 +309,7 @@ const initialize = () => {
     console.log(`BLACKJACK ver 0.0.1
 By Alex Hiller, Megha Saghal, & Brody Owen`);
     numberOfPlayers();
+
 }
 
 initialize();
