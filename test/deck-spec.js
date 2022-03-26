@@ -20,9 +20,9 @@ describe('Card', function(){
     beforeEach(function(){
     //create a set of test cards
     //create a test deck
-    card = new Cards('AS', 'Ace', 11, 1, 'Spades');
-    card2 = new Cards('JH', 'Jack', 10, 10, 'Hearts');
-    card3 = new Cards('2C', 'Two', 2, 2, 'Clubs');
+    card = new Card('AS', 'Ace', 11, 1, 'Spades');
+    card2 = new Card('JH', 'Jack', 10, 10, 'Hearts');
+    card3 = new Card('2C', 'Two', 2, 2, 'Clubs');
     deck = new Deck(1, []);
     })
 

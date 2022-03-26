@@ -4,55 +4,50 @@ const {Deck} = require('./deck.js');
 const {Card} = require('./card.js');
 const {Roster} = require('./roster.js');
 
-class Player extends Actor{
+class Player extends Actor {
     constructor(name, turnID, victory = true){
         super(name, turnID, victory);
         // this.hand = []; dunno if this is needed
         this.cash = 100;
         this.bet = 0;
-        this.rosterUpdate(roster);
-        
     }
 
-    betMoney(){
-
+    betMoney(num){
+        if(num > this.cash){
+            return false;
+        } else {
+            this.bet = num;
+        }
     }
 
     win(){
-
+        if(this.sumHand() === 21 && this.hand.length === 2){
+            this.cash += (this.bet * 1.5);
+        } else {
+            this.cash += this.bet;
+        }
     }
 
     lose(){
-
+        this.cash -= this.bet;
     }
 
-    tieCheck(){
-
-    }
-
-    lossCheck(){
-
-    }
-
-    rosterUpdate(roster){
-        roster.updatePlayerCount();
+    lossCheck(dealer){
+        if(this.sumHand() < dealer.sumHand() && dealer.sumHand() <= 21){
+            this.victory = false;
+        } else if (this.sumHand() === dealer.sumHand()){
+            this.victory = false;
+        }
     }
 
     handInspect(){
         //returns the contents of your hand
         this.hand.forEach(el => {
-            let card = this.getCardByID(el);
-            card.cardInspector();
+            el.cardInspector();
         })
     }
-
-    tableInspect(roster){
-        //shows the first card in the hand of all actors at the table
-        for(let i = 0; i < roster.actorStorage.length; i++){
-            console.log(``)
-        }
-    }
 }
+
 
 module.exports = {
     Player,

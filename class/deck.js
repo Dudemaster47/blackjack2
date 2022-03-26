@@ -14,6 +14,12 @@ class Deck {
         //and push that object into the stack
         //then it should recurse
         //it should keep recursing until the length of sortedStack is 0
+        if(this.sortedStack.length > 0){
+            let randNum = Math.random(Math.floor() * (this.sortedStack.length - 1));
+            this.stack.push(this.sortedStack.splice(randNum, 1));
+            this.shuffle();
+        }
+        //pretty sure that's all it needs.
     }
 }
 

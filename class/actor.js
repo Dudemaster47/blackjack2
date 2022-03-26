@@ -1,6 +1,6 @@
 const {Deck} = require('./deck.js');
 const {Card} = require('./card.js');
-const {Roster} = require('.roster.js');
+const {Roster} = require('./roster.js');
 
 class Actor{
     constructor(name, turnID, victory = true){
@@ -9,32 +9,19 @@ class Actor{
         this.victory = victory;
         this.hand = []
         this.displayHand;
-        this.rosterAdd(roster);
-    }
-
-    rosterAdd(roster){
-        roster.addToRoster(this);
-    }
-
-    rosterUpdate(roster){
-        for(let i = 0; i < roster.actorStorage.length; i++){
-            if(roster.actorStorage[i].turnID === this.turnID){
-                //checking the turnID since that will ultimately not be mutable
-                //or... possible to mess with, like by having two players with the same name.
-                roster.actorStorage[i] = this;
-            }
-        }
+        
+        // this.rosterAdd(roster);
     }
 
     setDeck(deck){
         this.deck = deck;
     }
 
-    hit(deck){
+    hit(deck, roster){
         //this is a method for drawing cards...
         this.hand.push(deck.stack.shift());
         this.handDisplay();
-        this.rosterUpdate(roster);
+        roster.rosterUpdate(this);
         //...huh, that should actually be all it needs.
     }
 
@@ -52,7 +39,7 @@ class Actor{
             return prevCard.value + currCard.value;
         }, sum);
 
-        aceChecker(sum);
+        return this.aceChecker(sum);
     }
 
     aceChecker(sum){
@@ -73,10 +60,16 @@ class Actor{
         });
     }
 
-    bust(){
+    bustChecker(roster){
+        if (this.sumHand() > 21){
+            this.bust(roster);
+        }
+    }
+
+    bust(roster){
         console.log(`${this.name} busts!`);
         this.victory = false;
-        this.stand();
+        this.stand(roster);
     }
 
     stand(roster){

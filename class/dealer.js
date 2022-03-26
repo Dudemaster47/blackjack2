@@ -4,19 +4,29 @@ const {Deck} = require('./deck.js');
 const {Card} = require('./card.js');
 const {Roster} = require('./roster.js');
 
-class Dealer extends Actor{
-    constructor(name = "Dealer", turnID){
+class Dealer extends Actor {
+    constructor(name, turnID){
         super(name, turnID);
+        this.victory = true;
         // this.hand = [];
-        this.turnSet(roster);
+        // this.turnSet(roster);
     }
 
-    turnSet(roster){
-        this.turnID = (roster.playerCount + 1)
+    checkSeventeen(roster){
+        this.bustChecker(roster);
+        if(this.sumHand() >= 17 && this.sumHand() <= 21){
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    checkSeventeen(){
-
+    turn(roster, deck){
+        if(this.checkSeventeen()){
+            this.stand(roster);
+        } else {
+            this.hit(deck);
+        }
     }
 }
 

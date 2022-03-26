@@ -1,11 +1,13 @@
 const {Card} = require('./card.js');
 const { Deck } = require('./deck.js');
+const {Dealer} = require('./dealer.js');
 const {Roster} = require('./roster.js');
 
 class Loader{
     static decks = [];
     static roster;
-    static fnlDeck = new Deck('fnl', []);
+    static fnlDeck;
+    static dealer;
 
     static loadCards(cardData){
         const cardList = cardData.cards;
@@ -36,7 +38,7 @@ class Loader{
     }
 
     static deckMerge(roster){
-        
+        fnlDeck = new Deck('fnl', []);
         let counter = roster.playerCount;
 
         if (roster.playerCount % 2 !== 0){
@@ -49,11 +51,16 @@ class Loader{
     }
 
     static setDeck(fnlDeck){
+        
         for(let i = 0; i < Loader.roster.actorStorage.length; i++){
             if(Loader.roster.actorStorage[i]){
                 Loader.roster.actorStorage[i].setDeck(fnlDeck);
             }
         }
+    }
+
+    static createDealer(dealer){
+        dealer = new Dealer("Dealer", 0);
     }
 
 }

@@ -17,17 +17,17 @@ describe ('Actor', function (){
     
     beforeEach(function(){
         // create a test actor
-        roster = new Roster(1, [], 1);
+        roster = new Roster(1, [], 0);
         actor = new Actor("John Doe", 1, true);
         // create a test deck
-        deck = new Deck(1, ['2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS', 'AS']);
+        deck = new Deck(1, [[{id: '2S', value: 2, altValue: 2}]]);
         
     })
     
     it('should have a name, a turn ID, and a hand consisting of an empty array', function (){  
         expect(actor.name).to.equal("John Doe");
         expect(actor.turnID).to.equal(1);
-        expect(actor.hand).to.equal([]);
+        expect(actor.hand.length).to.equal(0);
     });
 
     it('should have a victory property that defaults to true', function(){
@@ -46,23 +46,23 @@ describe ('Actor', function (){
         facilitate it.
         */
        expect(actor.hand.length).to.equal(0);
-       expect(deck.stack.length).to.equal(13);
-       actor.hit();
+       expect(deck.stack.length).to.equal(1);
+       actor.hit(deck, roster);
        expect(actor.hand.length).to.equal(1);
-       expect(deck.stack.length).to.equal(12);
+       expect(deck.stack.length).to.equal(0);
 
        //that should be sufficient for this test
     });
 
     it('should be able to sum the cards in its hand', function(){
         expect(actor.sumHand()).to.equal(0);
-        actor.hand = ['AS', 'JS'];
+        actor.hand = [{id:'AS', value: 11, altValue: 1}, {id:'JS', value: 10, altValue: 10}];
         expect(actor.sumHand()).to.equal(21);
     });
 
     it('should bust if its hand exceeds 21 in value', function(){
-        actor.hand = ['AS', 'JS', '2S'];
-        expect(actor.bust()).to.be.true;
+        actor.hand = [{id:'KS', value: 10, altValue: 10}, {id:'JS', value: 10, altValue: 10}, {id:'2S', value: 2, altValue: 2}];
+        actor.bustChecker(roster);
         expect(actor.victory).to.be.false;
         // bust should be called by sumHand after displaying the player's total
         // y'know, provided their total exceeds 21.
@@ -79,6 +79,7 @@ describe ('Actor', function (){
     it('should add itself to the roster on creation', function(){
         // this will have to be a method called by the constructor i believe
         // that said... if it happens on creation it basically just calls for checking the roster.
+        addToRoster(actor);
         expect(roster.actorStorage[0].name).to.equal(actor.name);
         // god that's ugly... and I'm not sure that's the right way to go about this.
         // i'll revisit this one as I'm testing.
@@ -86,7 +87,7 @@ describe ('Actor', function (){
 
     it("should update the roster's hand data every time its hand is modified", function(){
         expect(roster.actorStorage[0][actor.hand].length).to.equal(0);
-        actor.hit();
+        actor.hit(deck, roster);
         expect(roster.actorStorage[0][actor.hand].length).to.equal(1);
     });
 
@@ -100,7 +101,7 @@ describe ('Actor', function (){
         // then it should call a method in the roster class that checks the turnOrder
         // when it determines whose turn it is, it 'gets' the information for that person
         // then it says it's their turn.
-        actor.stand();
+        actor.stand(roster);
         expect(roster.turnOrder).to.equal(2);
         expect(roster.turnOrder).to.equal(roster.actorStorage[1][actor2.name]);
         expect(roster.currentPlayer()).to.equal(actor2);
@@ -122,7 +123,7 @@ describe ('Player', function(){
         player = new Player("John Doe", 1, true);
         dealer = new Dealer("Dealer", 0);
         // create a test deck
-        deck = new Deck(1, ['2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS', 'AS']);
+        deck = new Deck(1, [[{id: '2S', value: 2, altValue: 2}]]);
     });
 
     it('should inherit from the Actor class', function(){
@@ -160,14 +161,14 @@ describe ('Player', function(){
 
     it('should have a win method that adds the bet to its cash total', function(){
         expect(player.cash).to.equal(100);
-        player.bet(50);
+        player.betMoney(50);
         player.win();
         expect(player.cash).to.equal(150);
     });
 
     it('should payout 1.5x the bet if the player wins with a natural blackjack', function(){
         player.hand = ['AS', 'JS'];
-        player.bet(50);
+        player.betMoney(50);
         expect(player.cash).to.equal(100);
         player.win();
         expect(player.cash).to.equal(175);
@@ -175,7 +176,7 @@ describe ('Player', function(){
 
     it('should have a lose method that removes the bet from its cash total', function(){
         expect(player.cash).to.equal(100);
-        player.bet(50);
+        player.betMoney(50);
         player.lose();
         expect(player.cash).to.equal(50);
     });
@@ -183,14 +184,14 @@ describe ('Player', function(){
     it('should have a method that sets the victory property to false if it ties with the dealer', function(){
         player.hand = ['KS', '10S'];
         dealer.hand = ['AS', '9S'];
-        player.tieCheck();
+        player.tieCheck(dealer);
         expect(player.victory).to.be.false;
     });
 
     it("should have a method that sets victory to false if its hand sums to less than the Dealer's", function(){
         player.hand = ['6S', '10S'];
         dealer.hand = ['AS', 'JS'];
-        player.lossCheck();
+        player.lossCheck(dealer);
         expect(player.victory).to.be.false;
         //note that loss check should have a clause if the dealer's hand exceeds 21
         // it determines both if the player's hand is less than the dealer's
@@ -218,7 +219,7 @@ describe ('Dealer', function(){
         player = new Player("John Doe", 1, true);
         dealer = new Dealer("Dealer", 0);
         // create a test deck
-        deck = new Deck(1, ['2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS', 'AS']);
+        deck = new Deck(1, [{id: '2S', value: 2, altValue: 2}]);
     });
 
     it('should inherit from the Actor class', function(){
@@ -230,23 +231,23 @@ describe ('Dealer', function(){
     it('should always go last in the turn order', function(){
         //should have a method on creation that checks the player count from the roster
         //then sets the dealer's turn ID to that number plus 1.
-        dealer.turnSet();
+        roster.dealerTurnSet(dealer);
         expect(dealer.turnID).to.equal(roster.playerCount + 1);
     });
 
     it('should determine if its hand sums to over or under 17', function(){
-        dealer.hand = ['5S', '7S'];
-        expect(dealer.checkSeventeen()).to.be.false;
+        dealer.hand = [{id:'5S', value: 5, altValue: 5}, {id:'7S', value: 7, altValue: 7}];
+        expect(dealer.checkSeventeen(roster)).to.be.false;
 
         dealer.hand = ['AS', '6S'];
-        expect(dealer.checkSeventeen()).to.be.true;
+        expect(dealer.checkSeventeen(roster)).to.be.true;
     });
 
     it('should hit if checkSeventeen returns false', function(){
         //it needs a turn method that runs checkSeventeen then decides whether to hit or stay based on its hand sum
         dealer.hand = ['5S', '7S'];
         expect(dealer.hand.length).to.equal(2);
-        dealer.turn();
+        dealer.turn(roster, deck);
         expect(dealer.hand.length).to.equal(3);
     });
 
