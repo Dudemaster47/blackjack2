@@ -9,6 +9,7 @@ class Roster{
         this.turnOrder = turnOrder;
         this.actorStorage = actorStorage;
         this.playerCount = playerCount;
+        this.scoreStorage = {};
     }
 
     updatePlayerCount(){

@@ -8,10 +8,6 @@ class Card{
         this.ascii = ascii;
     }
 
-    aceChecker(){
-
-    }
-
     cardInspector(){
         console.log(`${this.name} of ${this.suit}`)
     }
