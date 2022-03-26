@@ -1,19 +1,21 @@
 const {Card} = require('./card.js');
 const { Deck } = require('./deck.js');
+const {Roster} = require('./roster.js');
 
 class Loader{
-    static cards = [];
     static decks = [];
 
     static loadCards(cardData){
         const cardList = cardData.cards;
         const deckList = cardData.decks;
 
-        // instantiate decks
+        // instantiate decks...
         for(let i = 0; i < deckList.length; i++){
             
+            let deckData = deckList[i];
             let newDeck;
-            newDeck = new Deck();
+            newDeck = new Deck(deckData.id, deckData.stack);
+            Loader.decks.push(newDeck)
             
             // instantiate cards...
             for(let j = 0; j < cardList.length; j++){
@@ -24,8 +26,18 @@ class Loader{
                 newDeck.sortedStack.push(newCard);
             }
             // that should create a sorted stack within a deck that can be used to shuffle into the main stack...
-            
+        }
+    }
 
+    static deckMerge(roster){
+        let fnlDeck = new Deck('fnl', []);
+        let counter = roster.playerCount;
+        if (roster.playerCount % 2 !== 0){
+            counter++;
+        }
+
+        for(let i = 0; i < (counter / 2); i++){
+            fnlDeck.sortedStack.concat(deck[i].sortedStack);
         }
     }
 

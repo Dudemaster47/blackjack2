@@ -5,8 +5,18 @@ const {Card} = require('./card.js');
 const {Roster} = require('./roster.js');
 
 class Dealer extends Actor{
-    constructor(){
-        super();
+    constructor(name = "Dealer", turnID){
+        super(name, turnID);
+        // this.hand = [];
+        this.turnSet();
+    }
+
+    turnSet(){
+        
+    }
+
+    checkSeventeen(){
+
     }
 }
 

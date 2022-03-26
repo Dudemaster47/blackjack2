@@ -5,8 +5,36 @@ const {Card} = require('./card.js');
 const {Roster} = require('./roster.js');
 
 class Player extends Actor{
-    constructor(){
-        super();
+    constructor(name, turnID, victory = true){
+        super(name, turnID, victory);
+        // this.hand = []; dunno if this is needed
+        this.cash = 100;
+        this.bet = 0;
+        this.rosterUpdate(roster);
+    }
+
+    betMoney(){
+
+    }
+
+    win(){
+
+    }
+
+    lose(){
+
+    }
+
+    tieCheck(){
+
+    }
+
+    lossCheck(){
+
+    }
+
+    rosterUpdate(roster){
+        roster.updatePlayerCount();
     }
 }
 

@@ -23,7 +23,7 @@ describe('Card', function(){
     card = new Cards('AS', 11, 1, 'Spades');
     card2 = new Cards('JH', 10, 10, 'Hearts');
     card3 = new Cards('2C', 2, 2, 'Clubs');
-    deck = new Deck([]);
+    deck = new Deck(1, []);
     })
 
 
@@ -34,7 +34,8 @@ describe('Card', function(){
     });
 
     it('should have an aceChecker method that swaps all values with altValues for summation', function(){
-        let player = new Player("John Doe", 1, ['AS', 'JH'], true);
+        let player = new Player("John Doe", 1, true);
+        player.hand = ['AS', 'JH'];
         expect(player.sumHand()).to.equal(21);
         player.hand.push(card3);
         expect(player.sumHand()).to.equal(13);
@@ -57,8 +58,13 @@ describe ('Deck', function(){
         //create a set of test cards
         //create a test deck
        
-        deck = new Deck([]);
+        deck = new Deck(1, []);
         });
+
+        it('should have an id property that defines which deck it is', function(){
+            expect(deck.id).to.equal(1);
+        });
+
         it('should have a stack property that defaults to empty', function(){
             expect(deck.stack.length).to.equal(0);
         });
@@ -70,8 +76,4 @@ describe ('Deck', function(){
             //also the stack should be randomized but i don't really know how to test for that
         });
 
-
-        it('should have a quantity of decks related to the player count', function(){
-            //blahhhh
-        });
 });

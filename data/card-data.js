@@ -1,16 +1,20 @@
 module.exports = {
     decks: [
         {
-
+            id: 1,
+            stack: []
         },
         {
-
+            id: 2,
+            stack: []
         },
         {
-
+            id: 3,
+            stack: []
         },
         {
-
+            id: 4,
+            stack: []
         },
     ],
     

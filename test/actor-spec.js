@@ -18,9 +18,9 @@ describe ('Actor', function (){
     beforeEach(function(){
         // create a test actor
         roster = new Roster(1, [], 1);
-        actor = new Actor("John Doe", 1, [], true);
+        actor = new Actor("John Doe", 1, true);
         // create a test deck
-        deck = new Deck(['2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS', 'AS']);
+        deck = new Deck(1, ['2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS', 'AS']);
         
     })
     
@@ -30,7 +30,7 @@ describe ('Actor', function (){
         expect(actor.hand).to.equal([]);
     });
 
-    it('should have a victory attribute that defaults to true', function(){
+    it('should have a victory property that defaults to true', function(){
         expect(actor.victory).to.be.true;
     });
 
@@ -46,10 +46,10 @@ describe ('Actor', function (){
         facilitate it.
         */
        expect(actor.hand.length).to.equal(0);
-       expect(deck.spades.length).to.equal(13);
+       expect(deck.stack.length).to.equal(13);
        actor.hit();
        expect(actor.hand.length).to.equal(1);
-       expect(deck.spades.length).to.equal(12);
+       expect(deck.stack.length).to.equal(12);
 
        //that should be sufficient for this test
     });
@@ -121,10 +121,10 @@ describe ('Player', function(){
     beforeEach(function(){
         // create a test actor
         roster = new Roster(1, [], 0);
-        player = new Player("John Doe", 1, [], true);
-        dealer = new Dealer("Dealer", 0, []);
+        player = new Player("John Doe", 1, true);
+        dealer = new Dealer("Dealer", 0);
         // create a test deck
-        deck = new Deck(['2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS', 'AS']);
+        deck = new Deck(1, ['2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS', 'AS']);
     });
 
     it('should inherit from the Actor class', function(){
@@ -141,7 +141,7 @@ describe ('Player', function(){
         expect(player.bet).to.equal(0);
     });
 
-    it('should have a bet method that sets the value of the bet attribute', function(){
+    it('should have a betMoney method that sets the value of the bet attribute', function(){
         expect(player.bet).to.equal(0);
         player.betMoney(50);
         expect(player.bet).to.equal(50);
@@ -217,10 +217,10 @@ describe ('Dealer', function(){
     beforeEach(function(){
         // create a test actor
         roster = new Roster(1, [], 0);
-        player = new Player("John Doe", 1, [], true);
-        dealer = new Dealer("Dealer", 0, []);
+        player = new Player("John Doe", 1, true);
+        dealer = new Dealer("Dealer", 0);
         // create a test deck
-        deck = new Deck(['2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS', 'AS']);
+        deck = new Deck(1, ['2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '10S', 'JS', 'QS', 'KS', 'AS']);
     });
 
     it('should inherit from the Actor class', function(){
