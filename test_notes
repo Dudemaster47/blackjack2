@@ -87,3 +87,30 @@ the game, when run, should:
 
 can we make it play casino music? we should figure that bit out.
 */
+
+
+/* GAME 2
+
+Slot Machine
+
+might as well lean into it and make a whole ass casino :P
+
+Basically, this just needs to be a matrix of three arrays. 
+What it needs to do is, when activated...
+It cycles through the first array a random number of times and lands on a random element of the array.
+
+And then it does it two more times.
+
+The trick would be creating the illusion of animation. 
+
+Javascript is single-threaded, so this can't iterate through all of the arrays at once. But it should be able to store the already set values in the output...
+
+*/
+
+/* GAME 3
+
+Roulette
+
+This is basically an easier version of the slot machine with more complex betting, now that I think of it.
+
+*/
