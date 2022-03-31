@@ -1,6 +1,3 @@
-const {Card} = require('./card.js');
-const {Loader} = require('./loader.js');
-
 class Deck {
     constructor(id, stack){
         this.id = id;
@@ -8,7 +5,6 @@ class Deck {
         this.sortedStack = [];
     }
     setDeck(roster){
-        
         for(let i = 0; i < roster.actorStorage.length; i++){
             if(roster.actorStorage[i]){
                 roster.actorStorage[i].setDeck(this);
@@ -22,7 +18,7 @@ class Deck {
         //then it should recurse
         //it should keep recursing until the length of sortedStack is 0
         if(this.sortedStack.length > 0){
-            let randNum = Math.random(Math.floor() * (this.sortedStack.length - 1));
+            let randNum = Math.floor(Math.random() * (this.sortedStack.length - 1));
             this.stack.push(this.sortedStack.splice(randNum, 1));
             this.shuffle();
         }

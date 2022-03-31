@@ -1,8 +1,4 @@
 const {Actor} = require('./actor.js');
-const {Dealer} = require('./dealer.js');
-const {Deck} = require('./deck.js');
-const {Card} = require('./card.js');
-const {Roster} = require('./roster.js');
 
 class Player extends Actor {
     constructor(name, turnID, victory = true){
@@ -23,14 +19,14 @@ class Player extends Actor {
 
     win(){
         if(this.sumHand() === 21 && this.hand.length === 2){
-            this.cash += (this.bet * 1.5);
+            this.cash += (Number(this.bet) * 1.5);
         } else {
-            this.cash += this.bet;
+            this.cash += Number(this.bet);
         }
     }
 
     lose(){
-        this.cash -= this.bet;
+        this.cash -= Number(this.bet);
     }
 
     lossCheck(dealer){

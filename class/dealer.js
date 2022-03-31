@@ -1,15 +1,6 @@
-const readline = require('readline');
+
 
 const {Actor} = require('./actor.js');
-const {Player} = require('./player.js');
-const {Deck} = require('./deck.js');
-const {Card} = require('./card.js');
-const {Roster} = require('./roster.js');
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
 
 class Dealer extends Actor {
     constructor(name, turnID){
@@ -20,10 +11,8 @@ class Dealer extends Actor {
     }
 
     checkSeventeen(roster){
-        this.bustChecker(roster);
-        if(!this.victory){
-            this.stand(roster);
-        } else if(this.sumHand() >= 17 && this.sumHand() <= 21){
+        
+        if(this.sumHand() >= 17 && this.sumHand() <= 21){
             return true;
         } else {
             return false;
@@ -32,15 +21,17 @@ class Dealer extends Actor {
 
     turn(roster, deck){
         if(this.checkSeventeen(roster)){
-            rl.question(`The Dealer stands.`, response => {
+            console.log(`The Dealer stands.`);
+            this.stand(roster);
+
+        }else {
+            if(!this.victory){
                 this.stand(roster);
-            });
-            
-        } else {
-            rl.question(`The Dealer hits.`, response => {
-                this.hit(roster, deck);
-            });
-            
+            } else {
+                console.log(`The Dealer hits.`);
+                this.hit(roster, deck);  
+                this.turn(roster, deck);          
+            }
         }
     }
 }

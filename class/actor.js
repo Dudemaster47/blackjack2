@@ -1,13 +1,4 @@
-const readline = require('readline');
 
-const {Deck} = require('./deck.js');
-const {Card} = require('./card.js');
-const {Roster} = require('./roster.js');
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
 
 class Actor{
     constructor(name, turnID, victory = true){
@@ -15,8 +6,8 @@ class Actor{
         this.turnID = turnID;
         this.victory = victory;
         this.hand = []
-        this.displayHand;
-        this.checkedHand;
+        this.displayHand = '';
+        this.checkedHand = '';
         
         // this.rosterAdd(roster);
     }
@@ -28,6 +19,7 @@ class Actor{
     hit(roster, deck){
         //this is a method for drawing cards...
         this.hand.push(deck.stack.shift());
+        this.hand = this.hand.flat();
         this.handDisplay();
         roster.rosterUpdate(this);
         this.bustChecker(roster);
@@ -44,40 +36,58 @@ class Actor{
 
     sumHand(){
         let sum = 0;
-        sum = this.hand.reduce((prevCard, currCard) => {
-            return prevCard.value + currCard.value;
-        }, sum);
+        let sumArr = [];
+        if(this.hand.length > 1){
+        this.hand.forEach(el => {
+            sumArr.push(el.value);
+        });
+
+        sum = sumArr.reduce((prevVal, currVal) => {
+            return prevVal + currVal;
+        });
 
         return this.aceChecker(sum);
+        }
     }
 
     aceChecker(sum){
+        let sumArr = [];
         if(sum > 21){
-            sum = 0;
-            sum = this.hand.reduce((prevCard, currCard) =>{
-                return prevCard.altValue + currCard.altValue;
-            }, sum);
+            this.hand.forEach(el => {
+                sumArr.push(el.altValue);
+            });
+    
+            sum = sumArr.reduce((prevVal, currVal) => {
+                return prevVal + currVal;
+            });
         }
         return sum;
     }
 
     handDisplay(){
         //creates the hand that's actually shown
+        this.displayHand = '';
         this.hand.forEach(el => {
-            this.displayHand.concat(el.ascii);
+            this.displayHand = this.displayHand.concat(el.ascii);
         //should just give a string that's the cards
         });
-        checkHand();
+        this.checkHand();
     }
     
     checkHand(){
-        for(i = 0; i < this.displayHand.length; i++){
-            if(i = 0){
-                this.checkedHand.concat(this.displayHand[i]);
+        this.checkedHand = '';
+        
+    
+        for(let i = 0; i < this.hand.length; i++){
+            
+            if(i === 0){
+                this.checkedHand = this.checkedHand.concat(this.hand[0].ascii);
             } else {
-                this.checkedHand.concat("\uD83C\uDCA0");
-            }
+               
+                this.checkedHand = this.checkedHand.concat("\uD83C\uDCA0");
+            } 
         }
+       
     }
 
     bustChecker(roster){
@@ -87,20 +97,19 @@ class Actor{
     }
 
     bust(roster){
-        rl.question(`${this.name} busts!`, response =>{
-            this.victory = false;
-        });
+        console.log(`${this.name} busts!`)
+        this.victory = false;
+        
     }
 
     stand(roster){
-        this.scoreStorage(roster, this.sumHand());
+        roster.rosterUpdate(this);
         roster.turnOrder++;
-        console.clear();
+        
         
         if(roster.turnOrder <= roster.actorStorage.length){
             roster.currentPlayer();
-        } else {
-        }
+        } 
     }
 }
 

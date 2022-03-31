@@ -21,7 +21,7 @@ class Roster{
     }
 
     dealerTurnSet(dealer){
-        dealer.turnID = (this.playerCount + 1)
+        dealer.turnID = (Number(this.playerCount) + 1)
     }
 
     initialHandDisplay(){
@@ -54,10 +54,21 @@ class Roster{
         for(let i = 0; i < this.actorStorage.length; i++){
             if(this.actorStorage[i].cash === 0){
                 console.log(`Sorry ${this.actorStorage[i].name}, but the House always wins.`);
-                console.log(`${this.actorStorage[i].nane} has been kicked from the table!`);
+                console.log(`${this.actorStorage[i].name} has been kicked from the table!`);
                 this.actorStorage.splice(i, 1);
+                this.playerCount --;
                 i--;
             }
+        }
+        
+    }
+
+    reset(){
+        this.turnOrder = 1;
+        for(let i = 0; i < this.actorStorage.length; i++){
+            this.actorStorage[i].hand = [];
+            this.actorStorage[i].displayHand = '';
+            this.actorStorage[i].checkedHand = '';
         }
     }
 
