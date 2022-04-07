@@ -69,6 +69,7 @@ class Roster{
             this.actorStorage[i].hand = [];
             this.actorStorage[i].displayHand = '';
             this.actorStorage[i].checkedHand = '';
+            this.actorStorage[i].victory = true;
         }
     }
 

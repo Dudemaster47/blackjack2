@@ -141,7 +141,6 @@ let playerRoster = (playerCount) => {
 }
 
 let stepForEaseOfRestarting = (roster) => {
-  console.log(roster);
   Loader.loadCards(cardData);
   let deck = Loader.deckMerge(roster);
   firstDeal(roster, deck);
@@ -203,7 +202,7 @@ let playerTurn = (roster, deck) => {
     dealerTurn(roster, deck);
   }
 
-
+  roster.tableInspect(player);
   rl.question(`First, place your bet. 
   > $`, bet => {
     if (player.betMoney(bet)){
