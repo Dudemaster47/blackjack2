@@ -95,7 +95,7 @@ const numberOfPlayers = () => {
 }
 
 const firstQuestion = (answer) => {
-  if (!(isNaN(answer)) && Number(answer) <= 7){
+  if (answer && !(isNaN(answer)) && Number(answer) <= 7){
       console.clear();
       console.log(`You responded ${answer} players. Is that correct?`);
       rl.question(`Y/N `, response =>{
@@ -200,7 +200,7 @@ let playerTurn = (roster, deck) => {
     printTurn(player, roster);
     roster.tableInspect(player);
     rl.question(`First, place your bet. 
-    > $`, bet => {
+  > $`, bet => {
       if (player.betMoney(bet)){
         console.log("Now, what will you do?")
         processInput(roster, deck, player);
@@ -325,7 +325,7 @@ let finalQuery = (roster) => {
   rl.question('', response => {
     console.clear();
     if (roster.playerCount > 0){
-      rl.question(`Would you like to keep playing? `, conf =>{
+      rl.question(`Would you like to keep playing? Y/N`, conf =>{
         roster.reset();
         secondQuestion2(conf, roster);
       });
