@@ -198,24 +198,24 @@ let playerTurn = (roster, deck) => {
   if (roster.actorStorage[roster.turnOrder - 1].name !== 'Dealer'){
     player = roster.actorStorage[roster.turnOrder - 1];
     printTurn(player, roster);
+    roster.tableInspect(player);
+    rl.question(`First, place your bet. 
+    > $`, bet => {
+      if (player.betMoney(bet)){
+        console.log("Now, what will you do?")
+        processInput(roster, deck, player);
+      }
+      else {
+        console.log(`Try entering a VALID bet.`);
+        rl.question("You know, like an amount less than or equal to the cash you've got on you.", response => {
+          playerTurn(roster, deck);
+        });
+      }
+    });
   } else {
     dealerTurn(roster, deck);
   }
 
-  roster.tableInspect(player);
-  rl.question(`First, place your bet. 
-  > $`, bet => {
-    if (player.betMoney(bet)){
-      console.log("Now, what will you do?")
-      processInput(roster, deck, player);
-    }
-    else {
-      console.log(`Try entering a VALID bet.`);
-      rl.question("You know, like an amount less than or equal to the cash you've got on you.", response => {
-        playerTurn(roster, deck);
-      });
-    }
-  });
 }
 
 let processInput = (roster, deck, player) => {
